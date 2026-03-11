@@ -1,0 +1,27 @@
+## This file includes all tier1 tests that can run on QEMU VM but with platform-restricted in LISA.
+name: qemu platform-restricted tier1 tests
+include:
+  - path: ../tiers/tier.yml
+variable:
+  - name: keep_environment
+    value: "no"
+  - name: qcow2
+    value: ""
+  - name: extra_user_data
+    value: "extra_cloud_init.yml"
+testcase:
+  - criteria:
+      name: "verify_azure_64bit_os|verify_bash_history_is_empty|verify_default_targetpw|verify_dhcp_client_timeout|verify_dhcp_file_configuration|verify_enable_kprobe|verify_grub|verify_ifcfg_eth0|verify_network_file_configuration|verify_no_pre_exist_users|verify_no_swap_on_osdisk|verify_omi_version|verify_openssl_version|verify_python_version|verify_serial_console_is_enabled|verify_udev_rules_moved"
+notifier:
+  - type: html
+platform:
+  - type: qemu
+    admin_private_key_file: "/home/liunan/.ssh/id_rsa"
+    keep_environment: always
+    qemu:
+      network_boot_timeout: 300
+    requirement:
+      qemu:
+        qcow2: "/mnt/c/Users/liunan/Downloads/azl4-vm/azl4-vm-base.x86_64-0.1-1.qcow2"
+        cloud_init:
+          extra_user_data: "extra_cloud_init.yml"

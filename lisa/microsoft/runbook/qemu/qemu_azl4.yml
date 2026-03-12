@@ -16,12 +16,12 @@ notifier:
   - type: html
 platform:
   - type: qemu
-    admin_private_key_file: "/home/liunan/.ssh/id_rsa"
+    admin_private_key_file: $(admin_private_key_file)
     keep_environment: $(keep_environment)
     qemu:
       network_boot_timeout: 300
     requirement:
       qemu:
-        qcow2: "/mnt/c/Users/liunan/Downloads/azl4-vm/azl4-vm-base.x86_64-0.1-1.qcow2"
+        qcow2: $(qcow2)
         cloud_init:
           extra_user_data: $(extra_user_data)

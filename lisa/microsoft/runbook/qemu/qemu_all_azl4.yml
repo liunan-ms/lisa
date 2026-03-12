@@ -1,0 +1,27 @@
+## This file includes 23 tests that can run on QEMU VM, the execution time is around 30 min, it's recommended to run this test suite on a powerful machine with enough resource, otherwise it may fail due to timeout. The test suite includes all tests in qemu_platform_tests and qemu_read_only_check, plus some additional tests which require reboot or fresh VM.
+name: qemu default
+include:
+  - path: ../tiers/tier.yml
+variable:
+  - name: keep_environment
+    value: "no"
+  - name: qcow2
+    value: ""
+  - name: extra_user_data
+    value: "extra_cloud_init.yml"
+testcase:
+  - criteria:
+      name: "verify_l3_cache|verify_cpu_count|verify_dns_name_resolution|verify_floppy_module_is_blacklisted|verify_timedrift_corrected|verify_default_targetpw|verify_grub|verify_udev_rules_moved|verify_serial_console_is_enabled|verify_bash_history_is_empty|verify_no_pre_exist_users|verify_python_version|verify_openssl_version|verify_azure_64bit_os|verify_omi_version|verify_no_swap_on_osdisk|verify_essential_kernel_modules|verify_enable_kprobe|verify_deployment_provision_synthetic_nic|verify_deployment_provision_standard_ssd_disk|verify_deployment_provision_premium_disk|verify_deployment_provision_ultra_datadisk|verify_deployment_provision_ephemeral_managed_disk"
+notifier:
+  - type: html
+platform:
+  - type: qemu
+    admin_private_key_file: "/home/liunan/.ssh/id_rsa"
+    keep_environment: always
+    qemu:
+      network_boot_timeout: 300
+    requirement:
+      qemu:
+        qcow2: "/mnt/c/Users/liunan/Downloads/azl4-vm/azl4-vm-base.x86_64-0.1-1.qcow2"
+        cloud_init:
+          extra_user_data: $(extra_user_data)

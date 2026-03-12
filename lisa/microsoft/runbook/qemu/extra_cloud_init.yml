@@ -1,0 +1,9 @@
+manage_etc_hosts: false
+preserve_hostname: true
+bootcmd:
+  - |
+    if [ ! -f /etc/systemd/network/10-ens3.network ]; then
+      mkdir -p /etc/systemd/network
+      printf '[Match]\nName=ens3\n\n[Network]\nDHCP=yes\n' > /etc/systemd/network/10-ens3.network
+      systemctl restart systemd-networkd
+    fi

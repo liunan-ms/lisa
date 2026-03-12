@@ -824,10 +824,12 @@ class BaseLibvirtPlatform(Platform, IBaseLibvirtPlatform):
             node_context = get_node_context(node)
             if node_context.init_system == InitSystem.CLOUD_INIT:
                 # Ensure cloud-init completes its setup.
+                # Exit code 2 means "degraded done" (recoverable warnings
+                # only, e.g. hostname set failures) which is acceptable.
                 node.execute(
                     "cloud-init status --wait",
                     sudo=True,
-                    expected_exit_code=0,
+                    expected_exit_code=[0, 2],
                     expected_exit_code_failure_message="waiting on cloud-init",
                 )
 

@@ -1,0 +1,26 @@
+name: qemu new 10 candidates
+include:
+  - path: ../tiers/tier.yml
+variable:
+  - name: keep_environment
+    value: "no"
+  - name: qcow2
+    value: ""
+  # - name: extra_user_data
+  #   value: "extra_cloud_init.yml"
+testcase:
+  - criteria:
+      name: "verify_grub"
+notifier:
+  - type: html
+platform:
+  - type: qemu
+    admin_private_key_file: "/home/liunan/.ssh/id_rsa"
+    keep_environment: always
+    qemu:
+      network_boot_timeout: 300
+    requirement:
+      qemu:
+        qcow2: "/mnt/c/Users/liunan/Downloads/azl4-vm/azl4-vm-base.x86_64-0.1-1.qcow2"
+        cloud_init:
+          # extra_user_data: "extra_cloud_init.yml"

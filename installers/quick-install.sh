@@ -96,15 +96,15 @@ version_ge() {
 # Step 1: Check and install Python
 if [ "$SKIP_PYTHON" = false ]; then
     echo "[1/4] Checking Python..."
-    
+
     CURRENT_VERSION=$(get_python_version)
-    
+
     # Check if we need to upgrade Python
     NEED_UPGRADE=false
-    
+
     if command_exists python3 && version_ge "$CURRENT_VERSION" "3.8"; then
         echo "  [OK] Python is installed: $(python3 --version)"
-        
+
         # Check if current version meets LISA requirements (3.8+)
         if ! version_ge "$CURRENT_VERSION" "3.8"; then
             echo "  [WARN] Python $CURRENT_VERSION is too old. LISA requires Python 3.8+."
@@ -123,7 +123,7 @@ if [ "$SKIP_PYTHON" = false ]; then
         case $OS in
             ubuntu|debian)
                 sudo apt-get update -qq
-                
+
                 # For Ubuntu 24.04+, use default python3 package
                 if [ "$OS" = "ubuntu" ] && version_ge "$OS_VERSION" "24.04"; then
                     echo "  Installing python3 and essential packages..."
@@ -362,10 +362,10 @@ echo "[4/4] Installing LISA from GitHub..."
 NEEDS_CLONE=true
 
 if [ -d "$INSTALL_PATH" ]; then
-    echo "  Directory $INSTALL_PATH already exists, removing it..."
-    rm -rf "$INSTALL_PATH"
-    echo "  Cloning LISA repository..."
-    git clone --branch "$BRANCH" https://github.com/microsoft/lisa.git "$INSTALL_PATH" --quiet
+    # echo "  Directory $INSTALL_PATH already exists, removing it..."
+    # rm -rf "$INSTALL_PATH"
+    # echo "  Cloning LISA repository..."
+    # git clone --branch "$BRANCH" https://github.com/microsoft/lisa.git "$INSTALL_PATH" --quiet
     NEEDS_CLONE=false
 fi
 
